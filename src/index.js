@@ -3,6 +3,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 // INITS
 const app = express();
@@ -27,14 +28,22 @@ app.set('view engine', '.hbs'); // Utilizando el motor de vistas
 app.use(express.urlencoded({extended: false})); // Entiende y recibe los datos enviados por los formularios
 app.use(methodOverride('_method'));
 app.use(session({
-    secret: 'badan21', // Palabra clave secreta
+    secret: 'notesApp', // Palabra clave secreta
     resave: true,
     saveUninitialized: true
 }));
+app.use(flash()); // Enviando mensajes entre ventanas
 
 /**
  * GLOBAL VARIABLES 
 */
+// Enviando mensajes entre ventanas
+app.use((req, res, next) => { 
+    res.locals.success_msg = req.flash('success_msg');
+    res.error_msg = req.flash('error_msg');
+
+    next(); // Para que el navegador prosiga y no se quede cargando
+});
 
 /**
  * ROUTES

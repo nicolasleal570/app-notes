@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/intranet-db-app', { // Conectandonos a la base de datos
+mongoose.connect('mongodb://localhost/notes-db-app', { // Conectandonos a la base de datos
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false
